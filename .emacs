@@ -1,4 +1,3 @@
-;;;; THIS LINE IS A TEST!
 ;;; BASIC UI CUSTOMIZATIONS
 (setq initial-scratch-message "")
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
