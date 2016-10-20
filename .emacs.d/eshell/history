@@ -1,0 +1,128 @@
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./make
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./make
+./book_data_export.exe 
+./make
+./make
+./make
+./make
+./make
+./make
+./make
+./make
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./book_data_export.exe 
+./make
+./make
+./book_data_export.exe 
+python
+sbcl
+sbcl
+cd c:/dwr/main
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+cd c:/dwr/main
+sbcl
+cd c:/dwr/main
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+ls
+ls -lia
+ls -lsa
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+cd c:/dwr/main
+sbcl
+(load "mapfix.lisp")
+sbcl
+exit
+sbcl
+sbcl
+sbcl
+sbcl
+sbcl
+ls
+ls -ls
+sbcl
+sbcl
+sbcl
+sbcl
+exit
+sbcl
+sbcl
+sbcl
+exit
+sbcl
+sbcl
+sbcl
+exit
+sbcl
+sbcl
+sbcl
+cd C:/dwr/Main
+grep
+grep -nr .recover *.py
+cc -otest.exe test.c
+cc -otest.exe test.c
+./test.exe
+cc -otest.exe test.c
+./test.exe
+rm test.exe
+rm test.c
