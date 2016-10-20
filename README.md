@@ -15,6 +15,6 @@ existing emacs preferences (which will be ignored).  Now, from a command prompt,
 cd to the home path discovered earlier and enter the following:
 ```html
         mklink /j ".emacs.d" "<path-to-cloned-git>/.emacs.d/"
-	mklink ".emacs" "<path-to-cloned-git>/.emacs"
+        mklink ".emacs" "<path-to-cloned-git>/.emacs"
 ```
 Replace <path-to-cloned-git> with the actual path to these files.
