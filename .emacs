@@ -1,4 +1,4 @@
-;;; BASIC UI CUSTOMIZATIONS
+;;; BASIC UI CUSTOMIZATIONS:
 (setq initial-scratch-message "")
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 (setq mouse-wheel-progressive-speed nil)
@@ -15,33 +15,36 @@
 (add-to-list 'default-frame-alist '(width . 86))
 
 
-;;; SQF MODE
+;;; SQF MODE:
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/sqf-mode"))
 (require 'sqf-mode)
 (add-to-list 'auto-mode-alist '("\\.sqf\\'" . sqf-mode))
 
 
-;;; TRANSLUCENCY EFFECT
+;;; TRANSLUCENCY EFFECT:
 (set-frame-parameter (selected-frame) 'alpha '(88 . 62))
 (add-to-list 'default-frame-alist '(alpha . (88 . 62)))
 
-;;; EXPANDED PACKAGE MANAGER
+;;; EXPANDED PACKAGE MANAGER:
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
-;;; PYTHON MODE CUSTOMIZATION
+;;; PYTHON MODE CUSTOMIZATION:
+;; * NOTE - python.exe should be reachable in the PATH environment variable
+;;            for all features to work (like syntax error highlighting)
 (elpy-enable)
 (setq elpy-rpc-backend "jedi")
 
-;;; SETUP SLIME
-(setq inferior-lisp-program "c:\\Progra~1\\SteelB~1\\1.2.15\\sbcl.exe")
+;;; SETUP SLIME:
+;; * NOTE - sbcl.exe must be reachable in the PATH environment variable
+(setq inferior-lisp-program "sbcl.exe")
 (slime-setup '(slime-fancy))
 (setq slime-lisp-implementations
       '(("sbcl" ("sbcl" "--dynamic-space-size" "12288"))))
 
-;;; RANDOM COLOR THEMES
+;;; RANDOM COLOR THEMES:
 (require 'color-theme)
 (eval-after-load "color-theme"
   '(progn
@@ -77,32 +80,41 @@
 			    (load-theme 'ubuntu t))))
        (eval (elt theme-strings (random (length theme-strings)))))))
 
-;;; SETUP CONSOLE LINE NUMBERS (AFTER LOADING THEMES!)
+;;; SETUP CONSOLE LINE NUMBERS (AFTER LOADING THEMES!):
 (require 'linum)
 (eval-after-load "linum"
   '(progn (global-linum-mode t)
 	  (set-face-attribute 'linum nil :height 62)))
-;;;(defun linum-hook nil
-;;;  (linum-mode 1)
-;;;  (eval-after-load "linum"
-;;;    '(set-face-attribute 'linum nil :height 62)))
-;;;(add-hook 'inferior-python-mode-hook 'linum-hook)  
-;;;(add-hook 'slime-repl-mode-hook 'linum-hook)
-;;;(add-hook 'text-mode-hook 'linum-hook)
-;;;(add-hook 'csv-mode-hook 'linum-hook)
-;;;(add-hook 'emacs-lisp-mode-hook 'linum-hook)
+;; (defun linum-hook nil
+;;   (linum-mode 1)
+;;   (eval-after-load "linum"
+;;     '(set-face-attribute 'linum nil :height 62)))
+;; (add-hook 'inferior-python-mode-hook 'linum-hook)  
+;; (add-hook 'slime-repl-mode-hook 'linum-hook)
+;; (add-hook 'text-mode-hook 'linum-hook)
+;; (add-hook 'csv-mode-hook 'linum-hook)
+;; (add-hook 'emacs-lisp-mode-hook 'linum-hook)
 
-;;; SET FONT FACE (AFTER LOADING THEMES!)
-(set-face-attribute 'default nil :font "Artesian-11")
+;;; SET FONT FACE (AFTER LOADING THEMES!):
+(cond
+ ((find-font (font-spec :name "Artesian"))
+  (set-face-attribute 'default nil :font "Artesian-11"))
+ ((find-font (font-spec :name "Consolas"))
+  (set-face-attribute 'default nil :font "Consolas-11"))
+ ((find-font (font-spec :name "DejaVu Sans Mono"))
+  (set-face-attribute 'default nil :font "DejaVu Sans Mono-11"))
+ ((find-font (font-spec :name "inconsolata"))
+  (set-face-attribute 'default nil :font "inconsolata-11"))
+ t nil)
 
-;;; CROSS PLATFORM LINE ENDING COMPATIBILITY
+;;; CROSS-PLATFORM LINE ENDING COMPATIBILITY:
 (defun remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-;;; NON USER EDITABLE
+;;; NON-USER-EDITABLE!
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
