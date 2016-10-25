@@ -1,8 +1,6 @@
 ./make
 ./book_data_export.exe 
 ./make
-./book_data_export.exe 
-./make
 ./make
 ./book_data_export.exe 
 ./make
@@ -126,3 +124,5 @@ cc -otest.exe test.c
 ./test.exe
 rm test.exe
 rm test.c
+ls
+rm fnc_neighbor.sqf
