@@ -7,7 +7,7 @@
 ;;(setq scroll-conservatively 10000)
 ;;(setq auto-window-vscroll nil)
 ;;(setq c-basic-offset 8)
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode t)
 (global-prettify-symbols-mode +1)
@@ -20,7 +20,8 @@
 
 ;;; INDIVIDUAL EL FILES:
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/el"))
-;;(add-to-list 'load-path (expand-file-name "~/.emacs.d/el"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/el"))
+;; The following module is no-good because it doesn't fit all color schemes:
 ;; (require 'highlight-current-line)
 ;; (setq highlight-current-line-globally t)
 
@@ -54,16 +55,53 @@
 (setq slime-lisp-implementations
       '(("sbcl" ("sbcl" "--dynamic-space-size" "12288"))))
 
-;;; RANDOM COLOR THEMES:
-(require 'color-theme)
-(eval-after-load "color-theme"
-  '(progn
-     (add-to-list 'load-path
-		  (expand-file-name
-		   "~/.emacs.d/elpa/solarized-theme-20160901.334/solarized"))
-     (add-to-list 'load-path
-		  (expand-file-name
-		   "~/.emacs.d/elpa/dracula-theme-20160826.627/dracula-theme"))
+;;; SET FONT FACE (AFTER LOADING THEMES!):
+(defun initialize-main-font-face ()
+  (cond
+   ((find-font (font-spec :name "Artesian"))
+    (set-face-attribute 'default nil :font "Artesian-11"))
+   ((find-font (font-spec :name "Consolas"))
+    (set-face-attribute 'default nil :font "Consolas-11"))
+   ((find-font (font-spec :name "DejaVu Sans Mono"))
+    (set-face-attribute 'default nil :font "DejaVu Sans Mono-11"))
+   ((find-font (font-spec :name "inconsolata"))
+    (set-face-attribute 'default nil :font "inconsolata-11"))
+   t nil)
+  (set-face-attribute 'mode-line nil :font "Envy Code R-11"))
+
+;;; SETUP CONSOLE LINE NUMBERS (AFTER LOADING THEMES!):
+(defun initialize-linum-mode (global?)
+  (require 'linum)
+  (eval-after-load "linum"
+    '(progn
+       (if global? (global-linum-mode t)) ;;
+       (set-face-attribute 'linum nil :font "Artesian-11:slant=italic")
+       (set-face-attribute 'linum nil :height 62)
+       (if (not global?) 
+;; The following lines implement linum-mode by whitelist instead of global:
+	   (progn
+	     (defun linum-hook nil
+	       (linum-mode 1)
+	       (eval-after-load "linum"
+		 '(set-face-attribute 'linum nil :height 62)))
+	     (let ((linum-mode-whitelist '(inferior-python-mode-hook
+					   slime-repl-mode-hook
+					   text-mode-hook
+					   csv-mode-hook
+					   emacs-lisp-mode-hook)))
+	       (mapcar (lambda (mode-hook) (add-hook mode-hook 'linum-hook))
+		       linum-mode-whitelist)))))))
+
+;;; PREPARE SPEEDBAR FONT/FORMATTING (AFTER LOADING THEMES!):
+(defun initialize-speedbar ()
+    (make-face 'speedbar-face)
+    (set-face-font 'speedbar-face "Consolas-10")
+    (setq speedbar-mode-hook '(lambda ()
+				(buffer-face-set 'speedbar-face)
+				(linum-mode -1))))
+
+;;; RANDOM COLOR THEME INITIALIZATION FOLLOWED BY FONT SELECTION:
+(defun initialize-random-color-theme ()
      (color-theme-initialize)
      (defun load-moe (light)
        (require 'moe-theme)
@@ -107,71 +145,14 @@
 			    (load-theme 'sunny-day t)
 			    (load-theme 'zenburn t)
 			    (load-theme 'ubuntu t))))
-       (eval (elt theme-strings (random (length theme-strings)))))))
-
-;;; SETUP CONSOLE LINE NUMBERS (AFTER LOADING THEMES!):
-(require 'linum)
-(eval-after-load "linum"
-  '(progn (global-linum-mode t)
-	  (set-face-attribute 'linum nil :height 62)))
-;; (defun linum-hook nil
-;;   (linum-mode 1)
-;;   (eval-after-load "linum"
-;;     '(set-face-attribute 'linum nil :height 62)))
-;; (add-hook 'inferior-python-mode-hook 'linum-hook)  
-;; (add-hook 'slime-repl-mode-hook 'linum-hook)
-;; (add-hook 'text-mode-hook 'linum-hook)
-;; (add-hook 'csv-mode-hook 'linum-hook)
-;; (add-hook 'emacs-lisp-mode-hook 'linum-hook)
-
-;;; SPECIAL SYMBOL REWRITES:
-(add-hook 'lisp-mode-hook
-	  (lambda () (setq prettify-symbols-alist
-		      '(("bigalpha"   . 913) ("alpha"   . 945)
-			("bigbeta"    . 914) ("beta"    . 946)
-			("biggamma"   . 915) ("gamma"   . 947)
-			("bigdelta"   . 916) ("delta"   . 948)
-			("bigepsilon" . 917) ("epsilon" . 949)
-			("bigzeta"    . 918) ("zeta"    . 950)
-			("bigeta"     . 919) ("eta"     . 951)
-			("bigtheta"   . 920) ("theta"   . 952)
-			("bigiota"    . 921) ("iota"    . 953)
-			("bigkappa"   . 922) ("kappa"   . 954)
-			("biglambda"  . 923) ("lambda"  . 955)
-			("bigmu"      . 924) ("mu"      . 956)
-			("bignu"      . 925) ("nu"      . 957)
-			("bigxi"      . 926) ("xi"      . 958)
-			("bigomicron" . 927) ("omicron" . 959)
-			("bigpi"      . 928) ("pi"      . 960)
-			("bigrho"     . 929) ("rho"     . 961)
-			("bigsigma"   . 931) ("sigmaf"  . 962) ("sigma" . 963)
-			("bigtau"     . 932) ("tau"     . 964)
-			("bigupsilon" . 933) ("upsilon" . 965)
-			("bigphi"     . 934) ("phi"     . 966)
-			("bigchi"     . 935) ("chi"     . 967)
-			("bigpsi"     . 936) ("psi"     . 968)
-			("bigomega"   . 937) ("omega"   . 969)
-			("member"          . 8712)
-			("proper-subset"   . 8834)
-			("proper-superset" . 8835)
-			("subset"   . 8838)
-			("superset" . 8839)
-			("union" . 8746)
-			("intersection" . 8745)
-			(">=" . 8805) ("<= " . 8804)
-			("neq" . 8800) ))))  ;("map" . 8614)
-
-;;; SET FONT FACE (AFTER LOADING THEMES!):
-(cond
- ((find-font (font-spec :name "Artesian"))
-  (set-face-attribute 'default nil :font "Artesian-11"))
- ((find-font (font-spec :name "Consolas"))
-  (set-face-attribute 'default nil :font "Consolas-11"))
- ((find-font (font-spec :name "DejaVu Sans Mono"))
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono-11"))
- ((find-font (font-spec :name "inconsolata"))
-  (set-face-attribute 'default nil :font "inconsolata-11"))
- t nil)
+       (eval (elt theme-strings (random (length theme-strings))))))
+(require 'color-theme)
+(eval-after-load "color-theme"
+  '(progn
+     (initialize-random-color-theme)
+     (initialize-main-font-face)
+     (initialize-linum-mode nil)
+     (initialize-speedbar)))
 
 ;;; CROSS-PLATFORM LINE ENDING COMPATIBILITY:
 (defun remove-dos-eol ()
