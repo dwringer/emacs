@@ -151,7 +151,7 @@
   '(progn
      (initialize-random-color-theme)
      (initialize-main-font-face)
-     (initialize-linum-mode nil)
+     (initialize-linum-mode t)
      (initialize-speedbar)))
 
 ;;; CROSS-PLATFORM LINE ENDING COMPATIBILITY:
