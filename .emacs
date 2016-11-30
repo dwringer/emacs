@@ -7,8 +7,10 @@
 ;;(setq scroll-conservatively 10000)
 ;;(setq auto-window-vscroll nil)
 ;;(setq c-basic-offset 8)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+(defun random-bar-select ()
+  (elt '(-1 t) (random 2)))
+(menu-bar-mode (random-bar-select))
+(tool-bar-mode (random-bar-select))
 (column-number-mode t)
 (global-prettify-symbols-mode +1)
 (setq c-basic-offset 8)
@@ -32,9 +34,22 @@
 (add-to-list 'auto-mode-alist '("\\.sqf\\'" . sqf-mode))
 
 
-;;; TRANSLUCENCY EFFECT:
+;;; TRANSLUCENCY EFFECT (TOGGLE WITH CTRL+F11):
 (set-frame-parameter (selected-frame) 'alpha '(88 . 62))
 (add-to-list 'default-frame-alist '(alpha . (88 . 62)))
+(defvar opaque-frames '())
+(defun toggle-frame-opacity ()
+  (interactive)
+  (let ((opaque (member (selected-frame) opaque-frames)))
+    (if (not opaque)
+	(progn
+	  (add-to-list 'opaque-frames (selected-frame))
+	  (set-frame-parameter (selected-frame) 'alpha '(100 . 100)))
+      (progn
+	(setf opaque-frames (delete (selected-frame) opaque-frames))
+	(set-frame-parameter (selected-frame) 'alpha '(88 . 62))))))
+(global-set-key [(control f11)] 'toggle-frame-opacity)
+
 
 ;;; EXPANDED PACKAGE MANAGER:
 (require 'package)
@@ -55,19 +70,34 @@
 (setq slime-lisp-implementations
       '(("sbcl" ("sbcl" "--dynamic-space-size" "12288"))))
 
+;;; ELISP FILTER:
+(defun filter (condp lst)
+  (delq nil (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
 ;;; SET FONT FACE (AFTER LOADING THEMES!):
+(defun available-font-p (f)
+  (find-font (font-spec :name f)))
 (defun initialize-main-font-face ()
-  (cond
-   ((find-font (font-spec :name "Artesian"))
-    (set-face-attribute 'default nil :font "Artesian-11"))
-   ((find-font (font-spec :name "Consolas"))
-    (set-face-attribute 'default nil :font "Consolas-11"))
-   ((find-font (font-spec :name "DejaVu Sans Mono"))
-    (set-face-attribute 'default nil :font "DejaVu Sans Mono-11"))
-   ((find-font (font-spec :name "inconsolata"))
-    (set-face-attribute 'default nil :font "inconsolata-11"))
-   t nil)
-  (set-face-attribute 'mode-line nil :font "Envy Code R-11"))
+  (let ((fonts
+	 (filter 'available-font-p
+		 '("Artesian"
+		   "Anonymous Pro"
+		   "CentSchbook Mono BT"
+		   "Consolas"
+		   "DejaVu Sans Mono"
+		   "Envy Code R"
+		   "Ti92Pluspc")))
+	(sizes '("9" "11" "13" "17.5"))
+	(mode-line-size (elt '("11" "13") (random 2))))
+    (set-face-attribute 'default nil
+			:font (format "%s-%s"
+				      (elt fonts (random (length fonts)))
+				      (elt sizes (random (length sizes)))))
+    (set-face-attribute 'mode-line nil
+			:font (format "Envy Code R-%s" mode-line-size))
+    (set-face-attribute 'mode-line-inactive nil
+			:font (format "Envy Code R-%s:slant=italic"
+				      mode-line-size))))
 
 ;;; SETUP CONSOLE LINE NUMBERS (AFTER LOADING THEMES!):
 (defun initialize-linum-mode (global?)
@@ -75,7 +105,7 @@
   (eval-after-load "linum"
     '(progn
        (if global? (global-linum-mode t)) ;;
-       (set-face-attribute 'linum nil :font "Artesian-11:slant=italic")
+       (set-face-attribute 'linum nil :font "Artesian:slant=italic")
        (set-face-attribute 'linum nil :height 62)
        (if (not global?) 
 ;; The following lines implement linum-mode by whitelist instead of global:
