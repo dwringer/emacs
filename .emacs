@@ -77,26 +77,50 @@
 ;;; SET FONT FACE (AFTER LOADING THEMES!):
 (defun available-font-p (f)
   (find-font (font-spec :name f)))
-(defun initialize-main-font-face ()
+(defun select-random-font ()
   (let ((fonts
 	 (filter 'available-font-p
-		 '("Artesian"
-		   "Anonymous Pro"
+		 '("Anonymous Pro"
+		   "Artesian"
 		   "CentSchbook Mono BT"
 		   "Consolas"
+		   "Courier New"
 		   "DejaVu Sans Mono"
 		   "Envy Code R"
-		   "Ti92Pluspc")))
-	(sizes '("9" "11" "13" "17.5"))
-	(mode-line-size (elt '("11" "13") (random 2))))
+		   "Inconsolata"
+		   "Liberation Mono"
+		   "Lucida Console"
+		   "Source Code Pro"
+		   "Ti92Pluspc"))))
+    (elt fonts (random (length fonts)))))
+(defun select-random-variable-font ()
+  (let ((fonts
+	 (filter 'available-font-p
+		 '("Arial"
+		   "Calibri"
+		   "Cambria"
+		   "Comic Sans MS"
+		   "Garamond"
+		   "Georgia"
+		   "Verdana"))))
+    (elt fonts (random (length fonts)))))
+(defun initialize-main-font-face ()
+  (let ((font-size (elt '("9" "11" "13" "17.5") (random 4)))
+	(mode-line-size (elt '("11" "13") (random 2)))
+	(mode-line-font (select-random-font)))
     (set-face-attribute 'default nil
 			:font (format "%s-%s"
-				      (elt fonts (random (length fonts)))
-				      (elt sizes (random (length sizes)))))
+				      (select-random-font)
+				      font-size))
+    (set-face-attribute 'variable-pitch nil
+			:font (format "%s-%s"
+				      (select-random-variable-font)
+				      font-size))
     (set-face-attribute 'mode-line nil
-			:font (format "Envy Code R-%s" mode-line-size))
+			:font (format "%s-%s" mode-line-font mode-line-size))
     (set-face-attribute 'mode-line-inactive nil
-			:font (format "Envy Code R-%s:slant=italic"
+			:font (format "%s-%s:slant=italic"
+				      mode-line-font
 				      mode-line-size))))
 
 ;;; SETUP CONSOLE LINE NUMBERS (AFTER LOADING THEMES!):
@@ -146,6 +170,7 @@
 			    (color-theme-greiner)
 			    (color-theme-infodoc)
 			    (color-theme-jonadabian-slate)
+			    (color-theme-late-night)
 			    (color-theme-robin-hood)
 			    (color-theme-marquardt)
 			    (color-theme-montz)
