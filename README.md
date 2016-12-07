@@ -1,10 +1,10 @@
 # emacs config
 Clone this repository to a location where these files will be kept.
-Then, from emacs, press <M-:> and then at the minibuffer prompt enter:
+Then, from emacs, press `<M-:>` and then at the minibuffer prompt enter:
 ```html
         (expand-file-name "~/")
 ```
-Afterwards, press <Return> and the minibuffer will now display your
+Afterwards, press `<Return>` and the minibuffer will now display your
 home path as it appears to emacs.  Navigate to this path and rename
 the folder ".emacs.d/" to ".emacs.d.bak/" - it will no longer be used.
 Also, rename the file ".emacs" to ".emacs.bak" to save your existing
