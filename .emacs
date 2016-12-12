@@ -4,9 +4,8 @@
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-follow-mouse 't)
 (setq scroll-step 1)
-;;(setq scroll-conservatively 10000)
-;;(setq auto-window-vscroll nil)
-;;(setq c-basic-offset 8)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
 (defun random-bar-select ()
   (elt '(-1 t) (random 2)))
 (menu-bar-mode (random-bar-select))
@@ -18,6 +17,11 @@
 (setq-default max-mini-window-height 2)
 (add-to-list 'default-frame-alist '(height . 34))
 (add-to-list 'default-frame-alist '(width . 86))
+
+;;; NEXT-LINE/PREVIOUS-LINE WINDOWS WORKAROUND (ALT- INSTEAD OF CTRL-[N,P]):
+(when (eq system-type 'windows-nt)
+  (global-set-key [(meta n)] 'next-line)
+  (global-set-key [(meta p)] 'previous-line))
 
 ;;; INDIVIDUAL EL FILES:
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/el"))
@@ -53,7 +57,7 @@
 	     '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
-;;; CSV-MODE COMMA/TAB SWITCHING (TOGGLE WITH CTRL+F12)
+;;; CSV-MODE COMMA/TAB SWITCHING (TOGGLE WITH CTRL+F12):
 (defun enter-csv-mode (&optional aligned?)
   (interactive)
   (csv-mode)
