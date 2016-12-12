@@ -19,7 +19,6 @@
 (add-to-list 'default-frame-alist '(height . 34))
 (add-to-list 'default-frame-alist '(width . 86))
 
-
 ;;; INDIVIDUAL EL FILES:
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/el"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/el"))
@@ -27,12 +26,10 @@
 ;; (require 'highlight-current-line)
 ;; (setq highlight-current-line-globally t)
 
-
 ;;; SQF MODE:
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/sqf-mode"))
 (require 'sqf-mode)
 (add-to-list 'auto-mode-alist '("\\.sqf\\'" . sqf-mode))
-
 
 ;;; TRANSLUCENCY EFFECT (TOGGLE WITH CTRL+F11):
 (set-frame-parameter (selected-frame) 'alpha '(88 . 62))
@@ -50,12 +47,37 @@
 	(set-frame-parameter (selected-frame) 'alpha '(88 . 62))))))
 (global-set-key [(control f11)] 'toggle-frame-opacity)
 
-
 ;;; EXPANDED PACKAGE MANAGER:
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
+
+;;; CSV-MODE COMMA/TAB SWITCHING (TOGGLE WITH CTRL+F12)
+(defun enter-csv-mode (&optional aligned?)
+  (interactive)
+  (csv-mode)
+  (when (> 0 (buffer-size))
+    (csv-unalign-fields nil 1 (buffer-size)))
+  (customize-set-variable 'csv-separators '(","))
+  (setf csv-tab-mode nil)
+  (when aligned? (csv-align-fields nil 1 (buffer-size))))
+(defun enter-tab-mode (&optional aligned?)
+  (interactive)
+  (csv-mode)
+  (let ((buf-size (buffer-size)))
+    (when (> 0 buf-size)
+      (csv-unalign-fields nil 1 buf-size))
+    (customize-set-variable 'csv-separators '("	"))
+    (setf csv-tab-mode t)
+    (when aligned? (csv-align-fields nil 1 buf-size))))
+(defvar csv-tab-mode nil)
+(defun csv-modes-toggle ()
+  (interactive)
+  (cond ((not (eq major-mode 'csv-mode)) (enter-csv-mode t))
+	(csv-tab-mode (enter-csv-mode t))
+	(t (enter-tab-mode t))))
+(global-set-key [(control f12)] 'csv-modes-toggle)
 
 ;;; PYTHON MODE CUSTOMIZATION:
 ;; * NOTE - python.exe should be reachable in the PATH environment variable
