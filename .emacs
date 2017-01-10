@@ -1,4 +1,18 @@
-;;; BASIC UI CUSTOMIZATIONS:
+;;; This .emacs file includes a variety of customizations.
+;;;  Basic Preferences
+;;;  M-n and M-p shortcuts for next/previous line
+;;;  SQF mode support
+;;;  Frame translucency - Toggle with C-f11
+;;;  MELPA package archive
+;;;  Switch CSV mode between tab- and comma-separated with C-f12
+;;;  ELPY Python mode
+;;;  SLIME LISP environment mode
+;;;  Random font face
+;;;  Line numbering mode
+;;;  Random color theme
+;;;  Greek letter symbol rewrites in LISP mode
+
+;;; BASIC PREFERENCES:
 (setq initial-scratch-message "")
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 (setq mouse-wheel-progressive-speed nil)
@@ -17,6 +31,9 @@
 (setq-default max-mini-window-height 2)
 (add-to-list 'default-frame-alist '(height . 34))
 (add-to-list 'default-frame-alist '(width . 86))
+(setenv "PATH" (concat
+		"C:/MinGW/msys/1.0/bin" ";" (getenv "PATH")))
+
 
 ;;; NEXT-LINE/PREVIOUS-LINE WINDOWS WORKAROUND (ALT- INSTEAD OF CTRL-[N,P]):
 (when (eq system-type 'windows-nt)
@@ -118,6 +135,7 @@
 		   "Envy Code R"
 		   "Fira Mono"
 		   "Inconsolata"
+		   "Letter Gothic"
 		   "Liberation Mono"
 		   "Lucida Console"
 		   "Oxygen Mono"
