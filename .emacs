@@ -246,6 +246,7 @@
 			      (add-to-list 'default-frame-alist
 					   '(width . 90)))
 			    (load-theme 'soft-stone t)
+			    (load-theme 'solar-autumn t)
 			    (load-theme 'solarized-dark t)
 			    (load-theme 'solarized-light t)
 			    (load-theme 'subatomic t)
