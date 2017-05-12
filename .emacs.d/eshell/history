@@ -1,128 +1,128 @@
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c./make.bat
+cc -omesh.exe mesh.c
+./mesh
+./mesh.exe
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+./mesh
+./make.bat
 ./make
-./book_data_export.exe 
-./make
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./make
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./make
-./book_data_export.exe 
-./make
-./make
-./make
-./make
-./make
-./make
-./make
-./make
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./book_data_export.exe 
-./make
-./make
-./book_data_export.exe 
+make.bat
+ls
+cc -omesh.exe mesh.c
+./mesh.exe
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cc -omesh.exe mesh.c
+./mesh
+cd c:/dwr/main/rust/hello_world/
+rustc main.rs
+./rustc main.rs
+rustc
+ls
+rustc main.rs
+./main
+ls
+ls -lisa
+mv main.rs src/main.rs
+mkdir src
+mv main.rs src/main.rs
+rm main.exe
+ls
+cargo --version
+cargo build
+./target/debug/hello_world
+ls
+ls -lisa
+cd target
+cd debug
+ls
+cd build
+ls
+cd ..
+cd deps
+ls
+ls -lisa
+cd ..
+cd ..
+cd ..
+cargo run
+cargo build --release
+ls
+cd target
+ls
+cd release
+ls
+cd ..
+cd ..
+cd ..
+cargo new hello_world_2 --bin
+ls
+cd hello_world_2/
+ls
+cat Cargo.toml 
+ls -lisa
+cd ..
+rm hello_world_2/
+rm -r hello_world_2/
+ls
+cargo new guessing_game
+rm -r guessing_game/
+cargo new guessing_game --bin
+cd guessing_game/
+cargo run
+cargo run
 python
-sbcl
-sbcl
-cd c:/dwr/main
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-cd c:/dwr/main
-sbcl
-cd c:/dwr/main
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-ls
-ls -lia
-ls -lsa
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-cd c:/dwr/main
-sbcl
-(load "mapfix.lisp")
-sbcl
-exit
-sbcl
-sbcl
-sbcl
-sbcl
-sbcl
-ls
-ls -ls
-sbcl
-sbcl
-sbcl
-sbcl
-exit
-sbcl
-sbcl
-sbcl
-exit
-sbcl
-sbcl
-sbcl
-exit
-sbcl
-sbcl
-sbcl
-cd C:/dwr/Main
-grep
-grep -nr .recover *.py
-cc -otest.exe test.c
-cc -otest.exe test.c
-./test.exe
-cc -otest.exe test.c
-./test.exe
-rm test.exe
-rm test.c
-ls
-rm fnc_neighbor.sqf
